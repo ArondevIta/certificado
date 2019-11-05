@@ -17,5 +17,5 @@ def index(request):
 
 @login_required()
 def cadastrar_aluno(request):
-    template_name = 'teste.html'
+    template_name = 'cadastro.html'
     return render(request, template_name)
