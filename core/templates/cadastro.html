@@ -1,9 +1,92 @@
 {% extends "base.html" %}
 
-{% block menu %}
+{% load static %}
 
+{% block menu %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Certificado-BR</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Inicio <span class="sr-only">(página atual)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Alunos</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Cadastrar aluno</a>
+                    <a class="dropdown-item" href="#">Cadastrar certificado</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Lista de certificados</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sair</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        </form>
+    </div>
+</nav>
 {% endblock %}
 
 {% block main %}
+
+<div class="row mt-5">
+<div class="container">
+    <h5>Cadastro de Aluno</h5>
+    {% if msg == "true" %}
+        <div class="alert alert-success" role="alert">
+          Cadastro efetuado com sucesso!
+        </div>
+    {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-6 p-2">
+                    <label for="exampleInputEmail1">Endereço de email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="E-mail" required>
+                </div>
+                <div class="col-6 p-2">
+                    <label for="lbluser">Login</label>
+                    <input type="text" id="lbluser" class="form-control" name="usuario" placeholder="Login" required>
+                </div>
+                <div class="col-12 p-2">
+                    <label for="lblsenha">Senha</label>
+                    <input type="password" class="form-control" id="lblsenha" name="senha" placeholder="Senha" required>
+                </div>
+                <div class="col-12 p-2">
+                    <label for="lblnome">Nome</label>
+                    <input type="text" class="form-control" id="lblnome" name="nome" placeholder="Nome Completo" required>
+                </div>
+                <div class="col-4 p-2">
+                    <label for="lblcidade">Cidade</label>
+                    <input type="text" class="form-control" id="lblcidade" name="cidade" placeholder="Cidade" required>
+                </div>
+                <div class="col-4 p-2">
+                    <label for="lblestado">Estado</label>
+                    <input type="text" class="form-control" id="lblestado" name="estado" placeholder="Estado" required>
+                </div>
+                <div class="col-4 p-2">
+                    <label for="lblcurso">Curso</label>
+                    <input type="text" class="form-control" id="lblcurso" name="curso" placeholder="Curso" required>
+                </div>
+            </div>
+             <button class="btn btn-primary mt-3">Cadastrar</button>
+        </form>
+</div>
+<div class="row mt-5"></div>
+</div>
+
 
 {% endblock %}

@@ -11,7 +11,7 @@
 
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="#">Inicio <span class="sr-only">(página atual)</span></a>
             </li>
             <li class="nav-item">
@@ -41,12 +41,42 @@
 {% endblock %}
 
 {% block main %}
-<div class="jumbotron">
-    <h1 class="display-4">Olá, {{ user }}!</h1>
-    <p class="lead">Gerar certificado para seus alunos nunca foi tão facil!</p>
-    <hr class="my-4">
-    <p>Comece já a utilizar nosso serviço.</p>
-    <a class="btn btn-dark btn-lg" href="#" role="button">Cadastrar Aluno</a>
-    <a class="btn btn-dark btn-lg" href="#" role="button">Emitir Certificado</a>
+
+<div class="row mt-5">
+<div class="container">
+    <h5>Cadastro de Certificado</h5>
+    {% if msg == "true" %}
+        <div class="alert alert-success" role="alert">
+          Cadastro efetuado com sucesso!
+        </div>
+    {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <label for="lblaluno" class="mt-3">Aluno</label>
+            <select class="form-control form-control" id="lblaluno" name="aluno">
+                {% for aluno in alunos %}
+                    <option value="{{ aluno.nome }}">{{ aluno.nome }}</option>
+                {% endfor %}
+            </select>
+            <div class="form-row">
+                <div class="col-6 pt-2">
+                    <label for="lblfaculdade">Instituição de Ensino</label>
+                    <input type="text" id="lblfaculdade" class="form-control" name="faculdade" placeholder="Instituição de ensino" required>
+                </div>
+                <div class="col-4 pt-2">
+                    <label for="lblcurso">Curso</label>
+                    <input type="text" id="lblcurso" class="form-control" name="curso" placeholder="Curso" required>
+                </div>
+                <div class="col-2 pt-2">
+                    <label for="lblcarga">Carga Horaria</label>
+                    <input type="text" id="lblcarga" class="form-control" name="carga" placeholder="Carga Horaria" required>
+                </div>
+            </div>
+            <button class="btn btn-primary mt-3">Cadastrar</button>
+        </form>
 </div>
+<div class="row mt-5"></div>
+</div>
+
+
 {% endblock %}
