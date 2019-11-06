@@ -37,6 +37,7 @@ def cadastrar_aluno(request):
     return render(request, template_name)
 
 
+@login_required()
 def cadastro_certificado(request):
     template_name = 'cadastro_certificado.html'
     alunos = Aluno.objects.all()
@@ -49,4 +50,11 @@ def cadastro_certificado(request):
         certificado.save()
         msg = 'true'
         return render(request, template_name, locals())
+    return render(request, template_name, locals())
+
+
+@login_required()
+def alunos(request):
+    template_name = 'alunos.html'
+    alunos = Aluno.objects.all()
     return render(request, template_name, locals())
