@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from .models import Aluno, Certificado
+from django.views.generic import View
+from django.utils import timezone
+from .render import Render
 
 
 @login_required()
@@ -58,3 +61,24 @@ def alunos(request):
     template_name = 'alunos.html'
     alunos = Aluno.objects.all()
     return render(request, template_name, locals())
+
+
+@login_required()
+def certificados(request):
+    template_name = 'certificados.html'
+    certificados = Certificado.objects.all()
+    return render(request, template_name, locals())
+
+
+class Pdf(View):
+
+    def get(self, request, id):
+
+        certificado = Certificado.objects.get(id=id)
+        today = timezone.now()
+        params = {
+            'today': today,
+            'certificado': certificado,
+            'request': request
+        }
+        return Render.render('pdf.html', params)

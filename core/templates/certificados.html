@@ -47,21 +47,21 @@
         <table class="table table-striped table-sm">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Nome</th>
-              <th scope="col">Matricula</th>
-              <th scope="col">Cidade</th>
-              <th scope="col">Estado</th>
+              <th scope="col">Aluno</th>
+              <th scope="col">Codigo</th>
+              <th scope="col">Instituição de ensino</th>
               <th scope="col">Curso</th>
+              <th scope="col">Carga Horaria</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-                {% for aluno in alunos %}
-                    <td> {{ aluno.nome }}</td>
-                    <td> {{ aluno.matricula }}</td>
-                    <td> {{ aluno.cidade }} </td>
-                    <td> {{ aluno.uf }} </td>
-                    <td> {{ aluno.curso }} </td>
+                {% for certificado in certificados %}
+                    <td> {{ certificado.aluno }}</td>
+                    <td> {{ certificado.codigo }}</td>
+                    <td> {{ certificado.faculdade }} </td>
+                    <td> {{ certificado.curso }} </td>
+                    <td> {{ certificado.carga_horaria }} </td>
                 {% endfor %}
             </tr>
 
