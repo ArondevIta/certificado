@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from .models import Aluno, Certificado
-from django.views.generic import View
-from django.utils import timezone
-from .render import Render
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
+
 
 
 @login_required()
@@ -70,15 +72,17 @@ def certificados(request):
     return render(request, template_name, locals())
 
 
-class Pdf(View):
+def pdf(request, id):
+    """Generate pdf."""
+    # Model data
+    certificado = Certificado.objects.get(id=id)
 
-    def get(self, request, id):
+    response = HttpResponse(content_type="application/pdf")
 
-        certificado = Certificado.objects.get(id=id)
-        today = timezone.now()
-        params = {
-            'today': today,
-            'certificado': certificado,
-            'request': request
-        }
-        return Render.render('pdf.html', params)
+    html = render_to_string("pdf.html", {
+        'certificado': certificado,
+    })
+
+
+    HTML(string=html).write_pdf(response)
+    return response
