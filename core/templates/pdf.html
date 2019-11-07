@@ -25,21 +25,74 @@
         color: black;
      }
       @page { size: letter landscape; margin: 2cm; }
+      img{
+        width: 100%;
+        heigth: 100%;
+      }
+
    </style>
  </head>
  <body>
- <div class="borda">
-     <h1 id="titulo">CERTIFICADO</h1>
-     <p style="padding: 25px;">
-         Certificamos que o aluno <span style="font-weight: bold;">{{ certificado.aluno }}</span> concluiu nosso curso de
-         <span style="font-weight: bold;">{{ certificado.curso }}</span>, na instituição <span style="font-weight: bold;">
-         {{ certificado.faculdade}}, com uma carga horaria no total de <span style="font-weight: bold;">
-         {{ certificado.carga}} horas.</span>
-     </span>
-     </p>
 
- </div>
 
-   <img src="{% static 'img/certificado.png' %}" alt="">
+ <img  src="{% static 'core/img/certificado.png' %}" alt="">
+ <p style="position: absolute;
+      color:#000;
+      text-align: center;
+      top: 100px;
+      line-height: 30px;
+      font-size: 25px;
+      font-weigth: bold;
+      margin-top: 100px;
+      left: 10%;
+      margin-right: -50%;
+
+      "> Certificamos que {{ certificado.aluno|upper }} <br> Concluiu o curso de
+     <span style="font-style: italic; color: red;">{{ certificado.curso }}.</span> <br>
+     Na rede de ensino {{ certificado.faculdade|upper }}<br> Com carga horaria de {{ certificado.carga_horaria }} horas.
+ </p>
+<p style="position: absolute;
+      color:#000;
+      text-align: center;
+      top: 50px;
+      line-height: 30px;
+      font-size: 20px;
+      font-weigth: bold;
+      margin-top: 150px;
+      border-bottom: solid 2px;
+      left: 38%;
+      margin-right: -50%;
+      ">
+
+</p>
+
+<p style="position: absolute;
+      color:#000;
+      text-align: center;
+      top: 140px;
+      line-height: 30px;
+      font-size: 25px;
+      font-weigth: bold;
+      margin-top: 100px;
+      left: 10%;
+      margin-right: -50%;
+
+      ">
+</p>
+
+ <p style="position: absolute;
+      color:#000;
+      text-align: center;
+      top: 140px;
+      line-height: 30px;
+      font-size: 25px;
+      font-weigth: bold;
+      margin-top: 150px;
+      left: 10%;
+      margin-right: -50%;
+
+      ">
+</p>
+
  </body>
 </html>

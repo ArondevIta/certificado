@@ -78,11 +78,10 @@ def pdf(request, id):
     certificado = Certificado.objects.get(id=id)
 
     response = HttpResponse(content_type="application/pdf")
-
     html = render_to_string("pdf.html", {
         'certificado': certificado,
     })
 
-
-    HTML(string=html).write_pdf(response)
+    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+    # HTML(string=html).write_pdf(response)
     return response
