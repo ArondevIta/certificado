@@ -20,5 +20,7 @@ class CertificadoAdmin(admin.ModelAdmin):
         'codigo',
         'faculdade',
         'curso',
-        'carga_horaria'
+        'carga_horaria',
+        'coordenador',
+        'criado_em'
     ]

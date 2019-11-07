@@ -24,6 +24,8 @@ class Certificado(models.Model):
     faculdade = models.CharField('Instituição de ensino', max_length=150)
     curso = models.CharField('Curso', max_length=200)
     carga_horaria = models.IntegerField('Carga Horaria')
+    coordenador = models.CharField('Coordernador', max_length=100)
+    criado_em = models.DateField('data', auto_now_add=True)
 
     def __str__(self):
         return self.codigo
