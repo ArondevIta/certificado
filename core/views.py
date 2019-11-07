@@ -15,6 +15,12 @@ def index(request):
         grupo = Group.objects.get(user=request.user)
         if grupo:
             template_name = 'index_professor.html'
+
+            # if query:
+            #     certificados = certificados.filter(codigo__icontains=query) | \
+            #                    certificados.filter(aluno__icontains=query) | \
+            #                    certificados.filter(faculdade__icontains=query)
+            #     msg = 'pesquisa'
             return render(request, template_name)
     except:
         template_name = 'index_aluno.html'
@@ -51,6 +57,7 @@ def cadastro_certificado(request):
         certificado.faculdade = request.POST['faculdade']
         certificado.curso = request.POST['curso']
         certificado.carga_horaria = request.POST['carga']
+        certificado.coordenador = request.POST['coordenador']
         certificado.aluno = Aluno.objects.get(nome=request.POST['aluno'])
         certificado.save()
         msg = 'true'
