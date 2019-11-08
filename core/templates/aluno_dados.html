@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block menu %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">Certificado-BR</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'index' %}">Inicio <span class="sr-only">(página atual)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'aluno_certificado' %}">Meus certificados</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'aluno_dados' %}">Meus Dados</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+{% endblock %}
+
+{% block main %}
+<div class="row pt-5">
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                    <div class="col-6">
+                        <label for="lblnome">Nome</label>
+                        <input type="text" class="form-control" id="lblnome" value="{{ aluno.nome }}" readonly>
+                    </div>
+                    <div class="col-6">
+                        <label for="lblmatricula">Matricula</label>
+                        <input type="text" class="form-control" id="lblmatricula" value="{{ aluno.matricula }}" readonly>
+                    </div>
+                    <div class="col-4 mt-2">
+                        <label for="lblcidade">Cidade</label>
+                        <input type="text" class="form-control" id="lblcidade" value="{{ aluno.cidade }}" readonly>
+                    </div>
+                    <div class="col-4 mt-2">
+                        <label for="lblestado">Estado</label>
+                        <input type="text" class="form-control" id="lblestado" value="{{ aluno.uf }}" readonly>
+                    </div>
+                    <div class="col-4 mt-2">
+                        <label for="lblcurso">Curso</label>
+                        <input type="text" class="form-control" id="lblcurso" value="{{ aluno.curso }}" readonly>
+                    </div>
+                </div>
+
+        </form>
+        <center>
+            <button class="btn btn-dark mt-3" style="width:130px;" data-toggle="modal" data-target="#modalUpdate">
+                Alterar
+            </button>
+        </center>
+    </div>
+</div>
+
+<!-- Modal -->
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Alterar dados</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{% url 'aluno_update' aluno.id %}">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-6">
+                        <label for="updatenome">Nome</label>
+                        <input type="text" class="form-control" id="updatenome" name="aluno_Nome" value="{{ aluno.nome }}" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="updatematricula">Matricula</label>
+                        <input type="text" class="form-control" id="updatematricula" name="aluno_Matricula" value="{{ aluno.matricula }}" readonly>
+                    </div>
+                    <div class="col-4 mt-2">
+                        <label for="cidadeupdate">Cidade</label>
+                        <input type="text" class="form-control" id="cidadeupdate" name="aluno_Cidade" value="{{ aluno.cidade }}" required>
+                    </div>
+                    <div class="col-4 mt-2">
+                        <label for="updateestado">Estado</label>
+                        <input type="text" class="form-control" id="updateestado" name="aluno_Estado" value="{{ aluno.uf }}" required>
+                    </div>
+                    <div class="col-4 mt-2">
+                        <label for="cursoupdate">Curso</label>
+                        <input type="text" class="form-control" id="cursoupdate" name="cidade_Empresa" value="{{ aluno.curso }}" readonly>
+                    </div>
+                </div>
+                <hr>
+                <button type="submit" class="btn btn-dark mt-3">Atualizar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

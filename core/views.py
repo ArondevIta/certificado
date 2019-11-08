@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from .models import Aluno, Certificado
@@ -68,7 +68,7 @@ def cadastro_certificado(request):
 @login_required()
 def alunos(request):
     template_name = 'alunos.html'
-    alunos = Aluno.objects.all()
+    alunos = Aluno.objects.all().order_by('nome')
     return render(request, template_name, locals())
 
 
@@ -79,6 +79,7 @@ def certificados(request):
     return render(request, template_name, locals())
 
 
+@login_required()
 def pdf(request, id):
     """Generate pdf."""
     # Model data
@@ -92,3 +93,43 @@ def pdf(request, id):
     HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
     # HTML(string=html).write_pdf(response)
     return response
+
+
+@login_required()
+def aluno_certificado(request):
+    template_name = 'aluno_certificado.html'
+    aluno = Aluno.objects.get(user=request.user)
+    certificados = Certificado.objects.filter(aluno=aluno)
+    # query = request.GET.get('q')
+    if request.method == 'POST':
+        query = request.POST['q']
+        if query:
+            certificados = Certificado.objects.filter(codigo=query)
+            if certificados:
+                msg = 'existe'
+                return render(request, template_name, locals())
+            else:
+                msg = 'false'
+                return render(request, template_name, locals())
+    return render(request, template_name, locals())
+
+
+@login_required()
+def aluno_dados(request):
+    template_name = 'aluno_dados.html'
+    aluno = Aluno.objects.get(user=request.user)
+    return render(request, template_name, locals())
+
+@login_required()
+def aluno_update(request, id):
+    user = Aluno.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        aluno = Aluno.objects.get(id=id)
+        aluno.nome = request.POST['aluno_Nome']
+        aluno.matricula = request.POST['aluno_Matricula']
+        aluno.cidade = request.POST['aluno_Cidade']
+        aluno.uf = request.POST['aluno_Estado']
+        aluno.curso = request.POST['cidade_Empresa']
+        aluno.save()
+        return redirect('aluno_dados')

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block menu %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">Certificado-BR</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'index' %}">Inicio <span class="sr-only">(página atual)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'aluno_certificado' %}">Meus certificados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'aluno_dados' %}">Meus Dados</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+{% endblock %}
+
+{% block main %}
+<div class="row pt-5"></div>
+<div class="container">
+    <form method="POST" class="form-inline">
+        {% csrf_token %}
+        <input type="text" class="form-control col-4 " name="q" placeholder="Digite o codigo para verificar o certificado" required>
+        <button class="btn btn-secondary ml-1">Verificar</button>
+    </form>
+</div>
+<div class="row pt-5">
+
+    <div class="container">
+        {% if msg == "existe" %}
+            <div class="alert alert-primary" role="alert">
+              Certificado é valido!
+            </div>
+            <table class="table table-striped table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Aluno</th>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Instituição de ensino</th>
+                  <th scope="col">Curso</th>
+                  <th scope="col">Carga Horaria</th>
+                  <th scope="col">Imprimir</th>
+                </tr>
+              </thead>
+              <tbody>
+               {% for certificado in certificados %}
+                <tr>
+
+                        <td> {{ certificado.aluno }}</td>
+                        <td> {{ certificado.codigo }}</td>
+                        <td> {{ certificado.faculdade }} </td>
+                        <td> {{ certificado.curso }} </td>
+                        <td> {{ certificado.carga_horaria }} </td>
+                        <td>
+                            <a href="{% url 'pdf' certificado.id %}"> <img src="https://img.icons8.com/android/24/000000/print.png"> </a>
+                        </td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        {% endif %}
+        {% if msg == 'false' %}
+        <script >
+            alert("Certificado invalido");
+        </script>
+        {% endif%}
+
+    </div>
+</div>
+{% endblock %}

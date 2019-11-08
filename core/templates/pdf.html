@@ -37,6 +37,7 @@
 
  <img  src="{% static 'core/img/certificado.png' %}" alt="">
  <p style="position: absolute;
+    width: 30em;  word-wrap: break-word;
       color:#000;
       text-align: center;
       top: 100px;
@@ -47,9 +48,9 @@
       left: 10%;
       margin-right: -50%;
 
-      "> Certificamos que {{ certificado.aluno|upper }} <br> Concluiu o curso de
-     <span style="font-style: italic; color: red;">{{ certificado.curso }}.</span> <br>
-     Na rede de ensino {{ certificado.faculdade|upper }}<br> Com carga horaria de {{ certificado.carga_horaria }} horas.
+      "> Certificamos que {{ certificado.aluno|upper }} concluiu o curso de
+     <span style="font-style: italic; color: red;">{{ certificado.curso }}.</span>
+     Na rede de ensino {{ certificado.faculdade|upper }} com carga horaria de {{ certificado.carga_horaria }} horas.
  </p>
 <p style="position: absolute;
       color:#000;
@@ -82,7 +83,19 @@
     <span style="border-bottom: 2px solid">{{ certificado.coordenador }}</span>
     <br> <span style="font-size: 16px; font-style: italic;">Coordernador</span>
 </p>
+<p style="position: absolute;
+      color:blue;
+      text-align: center;
+      top: 220px;
+      font-size: 10px
+      line-height: 2px;
+      margin-top: 310px;
+      left: 40%;
+      margin-right: -50%;
 
+      ">
+    <span style="color:#000;">Codigo:</span> <span style="font-size: 14px;">{{ certificado.codigo }}</span>
+</p>
 
  </body>
 </html>
