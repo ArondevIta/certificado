@@ -8,6 +8,22 @@ from weasyprint import HTML
 import tempfile
 
 
+def home(request):
+    template_name = 'index.html'
+    certificados = Certificado.objects.all()
+
+    if request.method == 'POST':
+        query = request.POST['q']
+        if query:
+            certificados = Certificado.objects.filter(codigo=query)
+            if certificados:
+                msg = 'existe'
+                return render(request, template_name, locals())
+            else:
+                msg = 'false'
+                return render(request, template_name, locals())
+    return render(request, template_name, locals())
+
 
 @login_required()
 def index(request):
@@ -16,11 +32,6 @@ def index(request):
         if grupo:
             template_name = 'index_professor.html'
 
-            # if query:
-            #     certificados = certificados.filter(codigo__icontains=query) | \
-            #                    certificados.filter(aluno__icontains=query) | \
-            #                    certificados.filter(faculdade__icontains=query)
-            #     msg = 'pesquisa'
             return render(request, template_name)
     except:
         template_name = 'index_aluno.html'

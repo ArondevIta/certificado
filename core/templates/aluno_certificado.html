@@ -32,20 +32,9 @@
 
 {% block main %}
 <div class="row pt-5"></div>
-<div class="container">
-    <form method="POST" class="form-inline">
-        {% csrf_token %}
-        <input type="text" class="form-control col-4 " name="q" placeholder="Digite o codigo para verificar o certificado" required>
-        <button class="btn btn-secondary ml-1">Verificar</button>
-    </form>
-</div>
 <div class="row pt-5">
 
     <div class="container">
-        {% if msg == "existe" %}
-            <div class="alert alert-primary" role="alert">
-              Certificado é valido!
-            </div>
             <table class="table table-striped table-sm">
               <thead class="thead-dark">
                 <tr>
@@ -71,16 +60,11 @@
                         </td>
 
                 </tr>
+                {% empty %}
+                    <td colspan="6">Ainda não existe certificado para você.</td>
                 {% endfor %}
               </tbody>
             </table>
-        {% endif %}
-        {% if msg == 'false' %}
-        <script >
-            alert("Certificado invalido");
-        </script>
-        {% endif%}
-
     </div>
 </div>
 {% endblock %}

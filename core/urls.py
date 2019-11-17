@@ -6,11 +6,12 @@ from .views import cadastrar_aluno,\
     alunos, \
     certificados, \
     pdf, aluno_certificado, \
-    aluno_dados,  aluno_update
+    aluno_dados,  aluno_update, home
 
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', home, name='home'),
+    path('index', index, name='index'),
     path('alunos', alunos, name='alunos'),
     path('aluno_certificado', aluno_certificado, name='aluno_certificado'),
     path('aluno_dados', aluno_dados, name='aluno_dados'),

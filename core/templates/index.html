@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+{% block menu %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'home' %}">Certificado-BR</a>
+<!--nav-item nav-link text-nowrap-->
+    <form method="POST" class="form-inline" action="{% url 'home' %}">
+        {% csrf_token %}
+        <input type="text" class="form-control bg-dark" style="width: 400px;"  name="q" placeholder="Digite o codigo para verificar o certificado" required>
+        <button class="btn btn-secondary ml-1" type="submit">Verificar</button>
+    </form>
+
+</nav>
+{% endblock %}
+
+{% block main %}
+
+{% if msg == "existe" %}
+<div class="alert alert-success" role="alert">
+  Certificado valido!
+</div>
+{% endif %}
+{% if msg == "false" %}
+<div class="alert alert-danger" role="alert">
+  Certificado invalido!
+</div>
+{% endif %}
+<div class="jumbotron text-center">
+  <h1>Certificado-BR</h1>
+  <p>Verifique se seu certificado é valido aqui!</p>
+    <a href="{% url 'login' %}" style="width: 150px;"  class="btn btn-outline-dark"> Login</a>
+</div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-sm-4">
+        <h4>Gere seus Certificados</h4>
+        <img class="img-fluid" src="{% static 'core/img/certificado1.jpg' %}" alt="Certificado BR">
+        <p>Com nosso site fica muito mais facil gerar o seu certificado.</p>
+      </div>
+
+    <div class="col-sm-4">
+        <h4>Verifique se é valido</h4>
+        <img class="img-fluid" src="{% static 'core/img/certificado2.jpg' %}" alt="Certificado BR">
+        <p>Com nosso site voce pode verificar se seu certificado é valido apenas com o codigo.</p>
+    </div>
+    <div class="col-sm-4">
+        <h4>Imprima de onde estiver</h4>
+        <img class="img-fluid" src="{% static 'core/img/certificado3.png' %}" alt="Certificado BR">
+        <p>Com nosso site voce pode imprimir de onde estiver, basta ter acesso a internet.</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
