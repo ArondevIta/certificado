@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load static %}
-
 {% block menu %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Certificado-BR</a>
@@ -14,7 +12,7 @@
             <li class="nav-item ">
                 <a class="nav-link" href="{% url 'index' %}">Inicio <span class="sr-only">(página atual)</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'alunos' %}">Alunos</a>
             </li>
             <li class="nav-item dropdown">
@@ -32,41 +30,46 @@
                 <a class="nav-link" href="{% url 'logout' %}">Sair</a>
             </li>
         </ul>
-
     </div>
 </nav>
 {% endblock %}
 
 {% block main %}
-<div class="row pt-5"></div>
-<div class="row pt-5">
-    <div class="container">
-        <h5>Lista de Alunos</h5>
-        <table class="table table-striped table-sm">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Nome</th>
-              <th scope="col">Matricula</th>
-              <th scope="col">Cidade</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Curso</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for aluno in alunos %}
-            <tr>
-                
-                    <td><a href="{% url 'edit_aluno' aluno.id %}">{{ aluno.nome }}</a></td>
-                    <td> {{ aluno.matricula }}</td>
-                    <td> {{ aluno.cidade }} </td>
-                    <td> {{ aluno.uf }} </td>
-                    <td> {{ aluno.curso }} </td>
-                
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-    </div>
+
+<div class="row mt-5">
+<div class="container">
+    <h5>Edição de Aluno</h5>
+    {% if msg == "true" %}
+        <div class="alert alert-success" role="alert">
+          Cadastro efetuado com sucesso!
+        </div>
+    {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-12 p-2">
+                    <label for="lblnome">Nome</label>
+                    <input type="text" class="form-control" id="lblnome" name="nome" value="{{ aluno.nome }}" required>
+                </div>
+                <div class="col-4 p-2">
+                    <label for="lblcidade">Cidade</label>
+                    <input type="text" class="form-control" id="lblcidade" name="cidade" value="{{ aluno.cidade }}" required>
+                </div>
+                <div class="col-4 p-2">
+                    <label for="lblestado">Estado</label>
+                    <input type="text" class="form-control" id="lblestado" name="estado" value="{{ aluno.uf }}" required>
+                </div>
+                <div class="col-4 p-2">
+                    <label for="lblcurso">Curso</label>
+                    <input type="text" class="form-control" id="lblcurso" name="curso" value="{{ aluno.curso }}" required>
+                </div>
+            </div>
+             <button class="btn btn-primary mt-3">Atualizar</button>
+             <a href="{% url 'alterar_senha' aluno.id %}" class="btn btn-warning mt-3"> Alterar senha </a>
+        </form>
 </div>
+<div class="row mt-5"></div>
+</div>
+
 
 {% endblock %}

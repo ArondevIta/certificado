@@ -144,3 +144,23 @@ def aluno_update(request, id):
         aluno.curso = request.POST['cidade_Empresa']
         aluno.save()
         return redirect('aluno_dados')
+
+
+@login_required()
+def edit_aluno(request, id):
+    template_name = 'edit_aluno.html'
+    aluno = Aluno.objects.get(id=id)
+    if request.method == 'POST':
+        aluno.nome = request.POST['nome']
+        aluno.cidade = request.POST['cidade']
+        aluno.uf = request.POST['estado']
+        aluno.curso = request.POST['curso']
+        aluno.save()
+        return render(request, template_name, locals())
+    return render(request, template_name, locals())
+
+
+login_required()
+def alterar_senha(request, id):
+    template_name = 'alterar_senha.html'
+    return render(request, template_name)
