@@ -4,17 +4,17 @@
 
 {% block menu %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Certificado-BR</a>
+    <a class="navbar-brand" href="{% url 'index' %}">Certificado-BR</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="{% url 'index' %}">Inicio <span class="sr-only">(página atual)</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'alunos' %}">Alunos</a>
             </li>
             <li class="nav-item dropdown">
@@ -38,39 +38,27 @@
 {% endblock %}
 
 {% block main %}
-<div class="row pt-5"></div>
-<div class="row pt-5">
-    <div class="container">
-        {% if msg == 'excluido' %}
-            <div class="alert alert-warning" role="alert">
-              Aluno Removido!
+<div class="row pt-5"> </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    Exclusão de aluno
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p class="card-text">Deseja realmente excluir {{ aluno.nome }} ? </p>
+                        <a href="{% url 'edit_aluno' aluno.id %}" class="btn btn-success">Voltar</a>
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </div>
             </div>
-        {% endif %}
-        <h5>Lista de Alunos</h5>
-        <table class="table table-striped table-sm">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Nome</th>
-              <th scope="col">Matricula</th>
-              <th scope="col">Cidade</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Curso</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for aluno in alunos %}
-            <tr>
-                
-                    <td><a href="{% url 'edit_aluno' aluno.id %}">{{ aluno.nome }}</a></td>
-                    <td> {{ aluno.matricula }}</td>
-                    <td> {{ aluno.cidade }} </td>
-                    <td> {{ aluno.uf }} </td>
-                    <td> {{ aluno.curso }} </td>
-                
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+
+        </div>
+        <div class="col-sm-2"></div>
     </div>
 </div>
 

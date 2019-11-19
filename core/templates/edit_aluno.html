@@ -67,7 +67,7 @@
             </div>
              <button class="btn btn-primary mt-3">Atualizar</button>
              <a href="#" class="btn btn-warning mt-3" class="open-modal" data-toggle="modal" data-target="#alteraSenhaModal">Alterar Senha</a>
-             <a href="#" class="btn btn-danger mt-3">Excluir</a>
+             <a href="{% url 'excluir_aluno' aluno.id %}" class="btn btn-danger mt-3">Excluir</a>
         </form>
 
 

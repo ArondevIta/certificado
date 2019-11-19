@@ -160,6 +160,7 @@ def edit_aluno(request, id):
             aluno.uf = request.POST['estado']
             aluno.curso = request.POST['curso']
             aluno.save()
+            msg = 'true'
         except:
             usuario.username = request.POST['usuario']
             novasenha = request.POST['senha']
@@ -174,3 +175,15 @@ login_required()
 def alterar_senha(request, id):
     template_name = 'alterar_senha.html'
     return render(request, template_name)
+
+
+login_required()
+def excluir_aluno(request, id):
+    template_name = 'excluir_aluno.html'
+    aluno = Aluno.objects.get(id=id)
+    usuario = User.objects.get(username=aluno.user)
+    if request.method == 'POST':
+        usuario.delete()
+        msg = 'excluido'
+        return redirect('alunos')
+    return render(request, template_name, locals())

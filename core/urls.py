@@ -6,7 +6,7 @@ from .views import cadastrar_aluno,\
     alunos, \
     certificados, \
     pdf, aluno_certificado, \
-    aluno_dados,  aluno_update, home, edit_aluno, alterar_senha
+    aluno_dados,  aluno_update, home, edit_aluno, alterar_senha, excluir_aluno
 
 
 urlpatterns = [
@@ -21,5 +21,6 @@ urlpatterns = [
     path('cadastro_certificado', cadastro_certificado, name='cadastrar_certificado'),
     path('certificados', certificados, name='certificados'),
     path('editar_aluno/<int:id>', edit_aluno, name='edit_aluno'),
+    path('excluir_aluno/<int:id>', excluir_aluno, name='excluir_aluno'),
     path('pdf/<int:id>', pdf, name='pdf'),
 ]
