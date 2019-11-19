@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% include "alterar_senha.html" %}
 
 {% block menu %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -41,7 +42,7 @@
     <h5>Edição de Aluno</h5>
     {% if msg == "true" %}
         <div class="alert alert-success" role="alert">
-          Cadastro efetuado com sucesso!
+          Dados alterados com sucesso!
         </div>
     {% endif %}
         <form method="post">
@@ -65,11 +66,55 @@
                 </div>
             </div>
              <button class="btn btn-primary mt-3">Atualizar</button>
-             <a href="{% url 'alterar_senha' aluno.id %}" class="btn btn-warning mt-3"> Alterar senha </a>
+             <a href="#" class="btn btn-warning mt-3" class="open-modal" data-toggle="modal" data-target="#alteraSenhaModal">Alterar Senha</a>
+             <a href="#" class="btn btn-danger mt-3">Excluir</a>
         </form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="alteraSenhaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mudar senha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form method="POST">
+            {% csrf_token %}
+              <label for="lblUser">Usuario</label>
+              <input type="text" class="form-control" name="usuario" value="{{ usuario }}" required>
+              <label for="lblSenha">Senha</label>
+              <input id="lblSenha" type="password" class="form-control" name="senha" required>
+              <button type="button" class="btn btn-secondary mt-3" data-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary mt-3" name="UPDATE">Alterar</button>
+          </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 </div>
 <div class="row mt-5"></div>
 </div>
+<!-- Ajax -->
+<script>
 
+var modalDiv = $(".modal-div");
+
+$(".open-modal").on("click", function() {
+  $.ajax({
+    url: $(this).attr("data-url"),
+    success: function(data) {
+      modalDiv.html(data);
+
+      $("#senhaModal").modal('show');
+    }
+  });
+});
+
+</script>
 
 {% endblock %}

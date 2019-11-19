@@ -45,7 +45,8 @@ def cadastrar_aluno(request):
         username = request.POST['usuario']
         password = request.POST['senha']
         email = request.POST['email']
-        newUser = User.objects.create_user(username=username, email=email, password=password)
+        newUser = User.objects.create_user(
+            username=username, email=email, password=password)
         newUser.save()
         aluno = Aluno()
         aluno.nome = request.POST['nome']
@@ -131,6 +132,7 @@ def aluno_dados(request):
     aluno = Aluno.objects.get(user=request.user)
     return render(request, template_name, locals())
 
+
 @login_required()
 def aluno_update(request, id):
     user = Aluno.objects.get(user=request.user)
@@ -150,12 +152,20 @@ def aluno_update(request, id):
 def edit_aluno(request, id):
     template_name = 'edit_aluno.html'
     aluno = Aluno.objects.get(id=id)
+    usuario = User.objects.get(username=aluno.user)
     if request.method == 'POST':
-        aluno.nome = request.POST['nome']
-        aluno.cidade = request.POST['cidade']
-        aluno.uf = request.POST['estado']
-        aluno.curso = request.POST['curso']
-        aluno.save()
+        try:
+            aluno.nome = request.POST['nome']
+            aluno.cidade = request.POST['cidade']
+            aluno.uf = request.POST['estado']
+            aluno.curso = request.POST['curso']
+            aluno.save()
+        except:
+            usuario.username = request.POST['usuario']
+            novasenha = request.POST['senha']
+            usuario.set_password(novasenha)
+            usuario.save()
+            msg = 'true'
         return render(request, template_name, locals())
     return render(request, template_name, locals())
 
