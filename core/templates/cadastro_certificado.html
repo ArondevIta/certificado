@@ -58,19 +58,19 @@
             <div class="form-row">
                 <div class="col-6 pt-2">
                     <label for="lblfaculdade">Instituição de Ensino</label>
-                    <input type="text" id="lblfaculdade" class="form-control" name="faculdade" placeholder="Instituição de ensino" required>
+                    <input type="text" id="lblfaculdade" onkeyup="this.value = this.value.toUpperCase();" class="form-control" name="faculdade" placeholder="Instituição de ensino" required>
                 </div>
                 <div class="col-6 pt-2">
                     <label for="lblcurso">Curso</label>
-                    <input type="text" id="lblcurso" class="form-control" name="curso" placeholder="Curso" required>
+                    <input type="text" id="lblcurso" onkeyup="this.value = this.value.toUpperCase();" class="form-control" name="curso" placeholder="Curso" required>
                 </div>
                 <div class="col-2 pt-2">
                     <label for="lblcarga">Carga Horaria</label>
-                    <input type="text" id="lblcarga" class="form-control" name="carga" placeholder="Carga Horaria" required>
+                    <input type="text" id="lblcarga" onkeypress="return onlynumber();" class="form-control" name="carga" placeholder="Carga Horaria" required>
                 </div>
                 <div class="col-10 pt-2">
                     <label for="lblcoordenador">Coordenador</label>
-                    <input type="text" id="lblcoordenador" class="form-control" name="coordenador" placeholder="Coordenador" required>
+                    <input type="text" id="lblcoordenador" onkeyup="this.value = this.value.toUpperCase();" class="form-control" name="coordenador" placeholder="Coordenador" required>
                 </div>
             </div>
             <button class="btn btn-primary mt-3">Cadastrar</button>
@@ -79,5 +79,17 @@
 <div class="row mt-5"></div>
 </div>
 
-
+<script>
+function onlynumber(evt) {
+   var theEvent = evt || window.event;
+   var key = theEvent.keyCode || theEvent.which;
+   key = String.fromCharCode( key );
+   //var regex = /^[0-9.,]+$/;
+   var regex = /^[0-9.]+$/;
+   if( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) theEvent.preventDefault();
+   }
+}
+</script>
 {% endblock %}

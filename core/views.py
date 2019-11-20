@@ -63,7 +63,7 @@ def cadastrar_aluno(request):
 @login_required()
 def cadastro_certificado(request):
     template_name = 'cadastro_certificado.html'
-    alunos = Aluno.objects.all()
+    alunos = Aluno.objects.all().order_by('nome')
     if request.method == 'POST':
         certificado = Certificado()
         certificado.faculdade = request.POST['faculdade']

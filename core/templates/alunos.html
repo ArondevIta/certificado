@@ -55,18 +55,23 @@
               <th scope="col">Cidade</th>
               <th scope="col">Estado</th>
               <th scope="col">Curso</th>
+              <th scope="col">Editar</th>
             </tr>
           </thead>
           <tbody>
             {% for aluno in alunos %}
             <tr>
                 
-                    <td><a href="{% url 'edit_aluno' aluno.id %}">{{ aluno.nome }}</a></td>
+                    <td>{{ aluno.nome }}</td>
                     <td> {{ aluno.matricula }}</td>
                     <td> {{ aluno.cidade }} </td>
                     <td> {{ aluno.uf }} </td>
                     <td> {{ aluno.curso }} </td>
-                
+                <td>
+                    <a href="{% url 'edit_aluno' aluno.id %}">
+                        <img src="https://img.icons8.com/cute-clipart/20/000000/pencil.png">
+                    </a>
+                </td>
             </tr>
             {% endfor %}
           </tbody>
