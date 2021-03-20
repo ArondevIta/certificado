@@ -7,7 +7,7 @@ Django==2.2.7
 django-crispy-forms==1.8.0
 django-xhtml2pdf==0.0.4
 html5lib==1.0.1
-Jinja2==2.10.3
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 Pillow==6.2.1
 pycparser==2.19
