@@ -14,7 +14,7 @@ pycparser==2.19
 PyPDF2==1.26.0
 Pyphen==0.9.5
 pytz==2019.3
-PyYAML==5.1.2
+PyYAML==5.4
 render==1.0.0
 reportlab==3.5.32
 six==1.13.0
